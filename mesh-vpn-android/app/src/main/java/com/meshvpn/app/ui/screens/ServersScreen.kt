@@ -15,7 +15,6 @@ import androidx.navigation.NavController
 import com.meshvpn.app.data.VpnGateApi
 import com.meshvpn.app.data.VpnServer
 import kotlinx.coroutines.launch
-
 @Composable
 fun ServersScreen(navController: NavController) {
     var servers by remember { mutableStateOf<List<VpnServer>>(emptyList()) }
@@ -64,6 +63,9 @@ fun ServersScreen(navController: NavController) {
 
 @Composable
 fun ServerItem(server: VpnServer) {
+    var connecting by remember { mutableStateOf(false) }
+    val context = androidx.compose.ui.platform.LocalContext.current
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -82,7 +84,7 @@ fun ServerItem(server: VpnServer) {
                     fontSize = 15.sp
                 )
                 Text(
-                    "${server.ip} • ${server.numSessions} сессий",
+                    "${server.ip} • ${server.numSessions} sessions",
                     fontSize = 12.sp,
                     color = Color(0xFF8899A6)
                 )
@@ -100,11 +102,34 @@ fun ServerItem(server: VpnServer) {
                     fontWeight = FontWeight.Bold,
                     fontSize = 14.sp
                 )
-                Text(
-                    server.countryShort,
-                    fontSize = 12.sp,
-                    color = Color(0xFF8899A6)
-                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Button(
+                    onClick = {
+                        connecting = true
+                        val intent = android.net.VpnService.prepare(context)
+                        if (intent != null) {
+                            (context as? android.app.Activity)?.startActivityForResult(intent, 100)
+                        } else {
+                            com.meshvpn.app.vpn.MeshVpnService.start(
+                                context, server.ovpnConfig, server.ip, 443
+                            )
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (com.meshvpn.app.vpn.MeshVpnService.isConnected &&
+                            com.meshvpn.app.vpn.MeshVpnService.currentServerIP == server.ip)
+                            Color(0xFF4CAF50) else MaterialTheme.colorScheme.primary
+                    ),
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        if (com.meshvpn.app.vpn.MeshVpnService.isConnected &&
+                            com.meshvpn.app.vpn.MeshVpnService.currentServerIP == server.ip)
+                            "Connected" else "Connect",
+                        fontSize = 12.sp,
+                        color = Color.Black
+                    )
+                }
             }
         }
     }
