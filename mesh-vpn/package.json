@@ -1,9 +1,0 @@
-{
-  "name": "mesh-vpn",
-  "version": "1.0.0",
-  "description": "Мобильное VPN/LAN приложение - аналог Radmin VPN для телефонов. Комнаты, чат, ключи доступа.",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  }
-}
