@@ -19,24 +19,23 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x mesh-vpn-android/gradlew
-      
-    - name: Create gradlew
-      run: |
-        cd mesh-vpn-android
-        gradle wrapper --gradle-version 8.4
+    - name: Generate Gradle Wrapper
+      working-directory: mesh-vpn-android
+      run: gradle wrapper --gradle-version 8.4
 
     - name: Build Debug APK
-      run: |
-        cd mesh-vpn-android
-        ./gradlew assembleDebug
+      working-directory: mesh-vpn-android
+      run: ./gradlew assembleDebug --no-daemon
 
-    - name: Upload APK
+    - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
-        name: MeshVPN-debug
+        name: MeshVPN-debug-apk
         path: mesh-vpn-android/app/build/outputs/apk/debug/app-debug.apk
+        if-no-files-found: error
