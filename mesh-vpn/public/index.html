@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MeshVPN - Виртуальная сеть</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Экран: Главная -->
+    <div id="screen-home" class="screen active">
+      <div class="header">
+        <h1>MeshVPN</h1>
+        <p class="subtitle">Виртуальная сеть для мобильных</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="showScreen('screen-create')">Создать комнату</button>
+        <button class="btn btn-secondary" onclick="showScreen('screen-join')">Войти по ключу</button>
+        <button class="btn btn-outline" onclick="showScreen('screen-servers')">Серверы</button>
+      </div>
+    </div>
+
+    <!-- Экран: Серверы -->
+    <div id="screen-servers" class="screen">
+      <div class="header">
+        <button class="btn-back" onclick="showScreen('screen-home')">&larr;</button>
+        <h2>Бесплатные серверы</h2>
+      </div>
+      <div id="server-list" class="server-list"></div>
+    </div>
+
+    <!-- Экран: Создать комнату -->
+    <div id="screen-create" class="screen">
+      <div class="header">
+        <button class="btn-back" onclick="showScreen('screen-home')">&larr;</button>
+        <h2>Создать комнату</h2>
+      </div>
+      <div class="form">
+        <input type="text" id="create-name" placeholder="Название комнаты" maxlength="30">
+        <input type="text" id="create-username" placeholder="Ваш никнейм" maxlength="20">
+        <select id="create-server"></select>
+        <select id="create-max">
+          <option value="5">До 5 участников</option>
+          <option value="10" selected>До 10 участников</option>
+          <option value="20">До 20 участников</option>
+          <option value="50">До 50 участников</option>
+        </select>
+        <button class="btn btn-primary" onclick="createRoom()">Создать</button>
+      </div>
+    </div>
+
+    <!-- Экран: Войти по ключу -->
+    <div id="screen-join" class="screen">
+      <div class="header">
+        <button class="btn-back" onclick="showScreen('screen-home')">&larr;</button>
+        <h2>Войти в комнату</h2>
+      </div>
+      <div class="form">
+        <input type="text" id="join-key" placeholder="Ключ комнаты (8 символов)" maxlength="8" style="text-transform:uppercase; letter-spacing:3px; text-align:center; font-size:1.4em;">
+        <input type="text" id="join-username" placeholder="Ваш никнейм" maxlength="20">
+        <button class="btn btn-primary" onclick="joinRoom()">Подключиться</button>
+      </div>
+    </div>
+
+    <!-- Экран: Комната -->
+    <div id="screen-room" class="screen">
+      <div class="room-header">
+        <div class="room-info">
+          <h3 id="room-name"></h3>
+          <span id="room-key-display" class="room-key" onclick="copyKey()"></span>
+        </div>
+        <button class="btn-leave" onclick="leaveRoom()">Выйти</button>
+      </div>
+      <div class="room-tabs">
+        <button class="tab active" onclick="switchTab('chat')">Чат</button>
+        <button class="tab" onclick="switchTab('members')">Участники <span id="members-count">0</span></button>
+      </div>
+
+      <!-- Вкладка: Чат -->
+      <div id="tab-chat" class="tab-content active">
+        <div id="chat-messages" class="chat-messages"></div>
+        <div class="chat-input">
+          <input type="text" id="chat-text" placeholder="Сообщение..." maxlength="500" onkeydown="if(event.key==='Enter')sendMessage()">
+          <button onclick="sendMessage()">&#9654;</button>
+        </div>
+      </div>
+
+      <!-- Вкладка: Участники -->
+      <div id="tab-members" class="tab-content">
+        <div id="members-list" class="members-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
