@@ -1,0 +1,13 @@
+{
+  "name": "slot-game-demo",
+  "version": "1.0.0",
+  "description": "Прототип веб-слот-игры с Canvas рендерингом и mock-сервером",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

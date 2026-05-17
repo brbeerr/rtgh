@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #1a0a2e;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Загрузчик */
+#loader {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #0d0117;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loader-logo {
+    font-size: 48px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ffd700, #ff6b00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 40px;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.loader-bar {
+    width: 300px;
+    height: 8px;
+    background: #2a1a4e;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.loader-progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ffd700, #ff6b00);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.loader-text {
+    margin-top: 15px;
+    color: #888;
+    font-size: 14px;
+}
+
+/* Игра */
+#game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+}
+
+.game-header {
+    display: flex;
+    gap: 40px;
+    font-size: 18px;
+}
+
+.game-header .label {
+    color: #aaa;
+    margin-right: 5px;
+}
+
+.balance-display span:not(.label) {
+    color: #4cff4c;
+    font-weight: bold;
+}
+
+.win-display span:not(.label) {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+/* Canvas */
+#slotCanvas {
+    border: 3px solid #3a2a5e;
+    border-radius: 12px;
+    background: #0d0520;
+    box-shadow: 0 0 40px rgba(100, 50, 200, 0.3), inset 0 0 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Контролы */
+.game-controls {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.bet-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bet-display {
+    font-size: 16px;
+    min-width: 120px;
+    text-align: center;
+}
+
+.bet-display .label {
+    color: #aaa;
+}
+
+.bet-display span:not(.label) {
+    color: #fff;
+    font-weight: bold;
+}
+
+.btn {
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.15s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn-small {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    background: #3a2a5e;
+    color: #fff;
+}
+
+.btn-small:hover {
+    background: #4a3a7e;
+}
+
+.btn-spin {
+    width: 140px;
+    height: 55px;
+    font-size: 22px;
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    color: #1a0a2e;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+}
+
+.btn-spin:hover {
+    box-shadow: 0 4px 30px rgba(255, 215, 0, 0.6);
+}
+
+.btn-spin:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Анимация выигрыша */
+@keyframes winPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.win-animation {
+    animation: winPulse 0.5s ease 3;
+}

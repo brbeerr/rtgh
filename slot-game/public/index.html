@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Slot Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Загрузчик -->
+    <div id="loader">
+        <div class="loader-logo">SLOT DEMO</div>
+        <div class="loader-bar">
+            <div class="loader-progress" id="loadProgress"></div>
+        </div>
+        <div class="loader-text" id="loadText">Загрузка...</div>
+    </div>
+
+    <!-- Игра -->
+    <div id="game" style="display:none;">
+        <div class="game-header">
+            <div class="balance-display">
+                <span class="label">Баланс:</span>
+                <span id="balance">0</span> ₽
+            </div>
+            <div class="win-display">
+                <span class="label">Выигрыш:</span>
+                <span id="winAmount">0</span> ₽
+            </div>
+        </div>
+
+        <canvas id="slotCanvas" width="800" height="400"></canvas>
+
+        <div class="game-controls">
+            <div class="bet-controls">
+                <button id="betDown" class="btn btn-small">−</button>
+                <div class="bet-display">
+                    <span class="label">Ставка:</span>
+                    <span id="betAmount">100</span> ₽
+                </div>
+                <button id="betUp" class="btn btn-small">+</button>
+            </div>
+            <button id="spinBtn" class="btn btn-spin">SPIN</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
