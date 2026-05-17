@@ -1,0 +1,31 @@
+{
+  "name": "mesh-vpn-desktop",
+  "version": "1.0.0",
+  "description": "MeshVPN Desktop - Virtual network for Windows/Mac/Linux",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "build-all": "electron-builder --win --linux"
+  },
+  "build": {
+    "appId": "com.meshvpn.desktop",
+    "productName": "MeshVPN",
+    "win": {
+      "target": "nsis",
+      "icon": "public/icon.ico"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "files": [
+      "main.js",
+      "server.js",
+      "public/**/*"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  }
+}
